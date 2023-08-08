@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 const MockServer = () => {
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState();
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
@@ -13,7 +13,7 @@ const MockServer = () => {
         const { username } = res.data;
         if (isMounted) {
           setUsername(username);
-          // setClicked(true);
+          setClicked(true);
           console.log(res.data);
         }
       })

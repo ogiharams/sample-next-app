@@ -20,16 +20,36 @@ afterEach(() => {
   cleanup();
 });
 afterAll(() => server.close());
-
 describe("Mocking API", () => {
   it("[Fetch success]Should display fetched data correctly and button disable", async () => {
     render(<MockServer />);
     await act(async () => {
       userEvent.click(screen.getByRole("button"));
-      // Wait for any async state updates to complete
     });
-    // screen.debug();
+
     expect(await screen.findByRole("heading")).toHaveTextContent("Bred dummy");
-    // console.log(await screen.findByRole("heading"));
+    // ボタンがdisabledになっていること
+    // screen.debug();
+    expect(screen.getByRole("button")).toHaveAttribute("disabled");
+  });
+  it("[Fetch failure]should display error msg, no render heading and button abled", async () => {
+    server.use(
+      rest.get(
+        "https://jsonplaceholder.typicode.com/users/1",
+        (req, res, ctx) => {
+          return res(ctx.status(404));
+        }
+      )
+    );
+    render(<MockServer />);
+    await act(async () => {
+      userEvent.click(screen.getByRole("button"));
+    });
+    expect(await screen.findByTestId("error")).toHaveTextContent(
+      "Fetching Failed"
+    );
+    console.log("test");
+    expect(screen.queryByRole("heading")).toBeNull();
+    expect(screen.getByRole("button")).not.toHaveAttribute("disabled");
   });
 });
