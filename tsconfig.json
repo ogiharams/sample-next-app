@@ -15,6 +15,17 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/nextStart/products/[id].js",
+    "src/libs/client.ts",
+    "src/logger/test.js",
+    "src/pages/loggerTest.jsx",
+    "src/logger/FrontendLog.js",
+    "src/pages/bunyan/index.js",
+    "src/pages/bunyan/index.jsx"
+  ],
   "exclude": ["node_modules"]
 }
