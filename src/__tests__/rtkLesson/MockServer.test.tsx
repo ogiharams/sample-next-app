@@ -48,6 +48,7 @@ describe("Mocking API", () => {
     expect(await screen.findByTestId("error")).toHaveTextContent(
       "Fetching Failed"
     );
+    console.log("test");
     expect(screen.queryByRole("heading")).toBeNull();
     expect(screen.getByRole("button")).not.toHaveAttribute("disabled");
   });
