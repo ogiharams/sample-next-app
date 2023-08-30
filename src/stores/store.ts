@@ -15,7 +15,7 @@ export const store = configureStore({
     fetch2: fetch2Reducer,
     rtkLogin: rtkLoginReducer,
     rtkTask: rtkTaskReducer,
-    custiomCounter: custiomCounterReducer,
+    customCounter: custiomCounterReducer,
   },
 });
 export type AppDispatch = typeof store.dispatch;
