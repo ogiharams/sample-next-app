@@ -4,6 +4,7 @@ import RenderInput from "./RenderInput";
 import FrameworkList from "./FrameworkList";
 import UseEffectRender from "./UseEffectRender";
 import MockServer from "./MockServer";
+import Redux from "./Redux";
 
 const index = () => {
   const data = [
@@ -31,6 +32,7 @@ const index = () => {
       <FrameworkList />
       <UseEffectRender />
       <MockServer />
+      <Redux />
     </>
   );
 };
