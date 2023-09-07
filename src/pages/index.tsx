@@ -10,6 +10,7 @@ const Home: NextPage = () => {
     { pageName: "rtkTasks", path: "rtkTasks" },
     { pageName: "rtkBasic", path: "rtkBasic" },
     { pageName: "rtlLesson", path: "rtlLesson" },
+    { pageName: "rtkQuery", path: "rtkQuery" },
     { pageName: "blogJamstack", path: "blogJamstack" },
     { pageName: "nextStart", path: "nextStart/products" },
     { pageName: "nextTypescript", path: "nextTypescript" },
