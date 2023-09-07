@@ -5,7 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import MockServer from "../../pages/rtlLesson/MockServer";
+import MockServer from "../../../pages/rtlLesson/MockServer";
 import { act } from "react-dom/test-utils";
 
 const server = setupServer(

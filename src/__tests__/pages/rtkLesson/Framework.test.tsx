@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import FrameworkList from "../../pages/rtlLesson/FrameworkList";
+import FrameworkList from "../../../pages/rtlLesson/FrameworkList";
 
 afterEach(() => cleanup());
 

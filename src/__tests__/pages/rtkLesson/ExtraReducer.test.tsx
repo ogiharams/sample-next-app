@@ -1,6 +1,6 @@
 import reducer, {
   fetchDummy,
-} from "../../stores/slices/rtkLesson/custiomCounterSlice";
+} from "../../../stores/slices/rtkLesson/custiomCounterSlice";
 
 describe("extraReducers", () => {
   const initialState = {

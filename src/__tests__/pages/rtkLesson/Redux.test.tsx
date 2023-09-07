@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom/extend-expect";
 import { Provider } from "react-redux";
 import { AnyAction, Store, configureStore } from "@reduxjs/toolkit";
-import custiomCounterReducer from "../../stores/slices/rtkLesson/custiomCounterSlice";
-import Redux from "../../pages/rtlLesson/Redux";
+import custiomCounterReducer from "../../../stores/slices/rtkLesson/custiomCounterSlice";
+import Redux from "../../../pages/rtlLesson/Redux";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 

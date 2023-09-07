@@ -1,7 +1,7 @@
 import reducer, {
   increment,
   incrementByAmount,
-} from "../../stores/slices/rtkLesson/custiomCounterSlice";
+} from "../../../stores/slices/rtkLesson/custiomCounterSlice";
 
 describe("Reducer of ReduxToolkit", () => {
   describe("increment action", () => {
