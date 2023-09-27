@@ -19,6 +19,7 @@ const Home = () => {
     { pageName: "typeScript", path: "typeScript" },
     { pageName: "HLS", path: "hls" },
     { pageName: "WAV", path: "wav" },
+    { pageName: "other", path: "other" },
   ];
 
   return (
