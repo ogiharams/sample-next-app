@@ -7,7 +7,7 @@ export default async (req, res) => {
     // 固定のスラッグを使用してAPIにリクエストを送信
     const response = await axios.get(
       // `https://jsonplaceholder.typicode.com/comments?postId=${requestData.key1}`
-      `https://jsonplaceholder.typicode.com/comments?postId=${requestData.key2}`
+      `https://jsonplaceholder.typicode.com/comments?postId=${requestData.key1}`
     );
 
     if (response.status === 200) {
