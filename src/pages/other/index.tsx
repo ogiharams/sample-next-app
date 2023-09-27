@@ -1,15 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeState,
+  incrementByAmount,
+  selectCount,
+} from "../../stores/slices/counter/counterSlice";
 
 const index = () => {
-  useEffect(() => {
-    const fixedSlug = "1"; // 固定のスラッグ
+  const [formData, setFormData] = useState({
+    name: "",
+  });
+
+  const despatch = useDispatch();
+  const count = useSelector(selectCount);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, name: value });
+  };
+
+  const handleClick2 = () => {
+    // e.preventDefault();
     const requestData = {
-      key1: "1",
-      key2: "2",
+      key1: formData.name,
+      key2: formData.name,
     };
     const apiUrl = `/api/jsonplaceholderUser/`;
-    console.log(apiUrl);
 
     const fetchUserData = async () => {
       try {
@@ -23,6 +40,7 @@ const index = () => {
           const data = response.data;
           // データを使用する
           console.log(data);
+          despatch(changeState(data));
         } else {
           console.error("API request failed");
         }
@@ -31,12 +49,25 @@ const index = () => {
       }
     };
 
-    // APIにアクセスしてユーザーデータを取得
+    // APIにアクセスしてユーザーデータを取得;
     fetchUserData();
-  }, []);
+  };
+  const itemList = Object.keys(count).map((key) => (
+    <div key={key}>{count[key]}</div>
+  ));
+
   return (
     <>
-      <div>aaa</div>
+      <div>
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+      </div>
+      <button onClick={() => handleClick2()}>Submit</button>
     </>
   );
 };
