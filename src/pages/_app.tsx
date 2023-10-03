@@ -8,8 +8,18 @@ import { useContext, useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import store from "../stores/store";
 import { Provider } from "react-redux";
+import { StylesProvider, ThemeProvider } from "@material-ui/core";
+import theme from "./theme";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+  // MaterialUi設定
+  useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement?.removeChild(jssStyles);
+    }
+  }, []);
   // const user = { username: null, email: null, password: null };
   const [userState, setUserState] = useState({
     username: null,
@@ -154,10 +164,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
               href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
             />
           </Head>
-
-          <ApolloProvider client={client}>
-            <Component {...pageProps} />
-          </ApolloProvider>
+          <ThemeProvider theme={theme}>
+            <ApolloProvider client={client}>
+              <StylesProvider injectFirst>
+                <Component {...pageProps} />
+              </StylesProvider>
+            </ApolloProvider>
+          </ThemeProvider>
         </Provider>
       </AppContext.Provider>
     </>

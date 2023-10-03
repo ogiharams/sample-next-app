@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 // const withBunyan = require("next-bunyan");
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
 };
 

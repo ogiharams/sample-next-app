@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   FormControl,
   Grid,
   InputLabel,
   List,
   ListItem,
-  ListItemIcon,
   MenuItem,
   Paper,
   Select,
@@ -18,6 +16,8 @@ import {
   useGetPokemonInfoQuery,
 } from "../../stores/services/pokemonApi";
 import Axios from "axios";
+import { GetServerSideProps } from "next/types";
+
 type Name = {
   language: {
     name: string;
@@ -47,7 +47,7 @@ type Genera = {
 };
 const useStyles = makeStyles((theme) => ({
   pokemonInfoArea: {
-    width: "35%",
+    width: 300,
   },
   formControl: {
     margin: theme.spacing(1),
@@ -94,54 +94,98 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3rem",
   },
 }));
+
 const PokemonInfoCard = () => {
   const classes = useStyles();
+  // ポケモンのNoをセットするポケモン情報取得時に渡す
   const [id, setId] = useState(94);
-  const [getPokemon, setGetPokemon] = useState(true);
+  // 全てのポケモンのリスト
   const [allPokemonList, setAllPokemonList] = useState([{ pokemonName: "" }]);
+  console.log(allPokemonList);
+  // 選択したポケモン
   const [pokemonName, setPokemonName] = useState("");
+  // ポケモンの基本情報を取得
   const {
     data: data1,
     isLoading: isLoading1,
     error: error1,
   } = useGetPokemonInfoQuery(id);
+  // ポケモンの日本語名等を取得
   const {
     data: data2,
     isLoading: isLoading2,
     error: error2,
   } = useGetPokemonByNameQuery(id);
+
+  // 取得したポケモンの高さ、重さを変換する関数
   const conversionData = (num: number): number => {
     return num / 10;
   };
 
+  // プルダウン押下時のイベントハンドラ
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    // 表示するポケモンのIDを変更
     setId(event.target.value as number);
+    // 表示するポケモンの名前を変更
     setPokemonName(event.target.value as string);
   };
 
-  const getPokemonJapaneseName = async () => {
-    try {
-      const response = await Axios.get(
-        "https://pokeapi.co/api/v2/pokemon-species/?limit=1016"
-      );
+  // const getPokemonJapaneseName = async () => {
+  //   try {
+  //     const response = await Axios.get(
+  //       "https://pokeapi.co/api/v2/pokemon-species/?limit=10"
+  //     );
 
-      const pokemonList = response.data.results;
-      for (const pokemon of pokemonList) {
-        const detailsResponse = await Axios.get(pokemon.url);
-        const japaneseName = detailsResponse.data.names.find(
-          (name: Name) => name.language.name === "ja"
-        ).name;
-        setAllPokemonList((allPokemonList) => [
-          ...allPokemonList,
-          { pokemonName: japaneseName },
-        ]);
-      }
-    } catch {}
-  };
-  useEffect(() => {
-    setAllPokemonList([{ pokemonName: "" }]);
-    getPokemonJapaneseName();
-  }, []);
+  //     const pokemonList = response.data.results;
+  //     for (const pokemon of pokemonList) {
+  //       const detailsResponse = await Axios.get(pokemon.url);
+  //       const japaneseName = detailsResponse.data.names.find(
+  //         (name: Name) => name.language.name === "ja"
+  //       ).name;
+
+  //       setAllPokemonList((allPokemonList) => [
+  //         ...allPokemonList,
+  //         { pokemonName: japaneseName },
+  //       ]);
+  //     }
+  //   } catch {}
+  // };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await Axios.get(
+  //       `https://pokeapi.co/api/v2/pokemon-species/?limit=10`
+  //     );
+
+  //     if (response.status === 200) {
+  //       // レスポンスからポケモンの情報を取得
+  //       const pokemonSpecies = response.data.results;
+
+  //       // ポケモンの日本語名を取り出して新しい配列を作成
+  //       const japaneseNames = pokemonSpecies.map(async (species) => {
+  //         const speciesResponse = await Axios.get(species.url);
+  //         const japaneseName = speciesResponse.data.names.find(
+  //           (name) => name.language.name === "ja"
+  //         );
+  //         return { pokemon: japaneseName.name };
+  //       });
+
+  //       // 日本語名の配列を待機
+  //       const results = await Promise.all(japaneseNames);
+  //       console.log("results", results);
+  //     } else {
+  //       console.error("API request failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
+
+  // // 初期表示時
+  // useEffect(() => {
+  //   // setAllPokemonList([{ pokemonName: "" }]);
+  //   fetchData();
+  //   // getPokemonJapaneseName();
+  // }, []);
 
   return (
     <>
@@ -180,7 +224,6 @@ const PokemonInfoCard = () => {
                     />
                   </Box>
                 </Grid>
-                {/* <Grid item xs={4}></Grid> */}
               </Grid>
               <Grid container>
                 <Grid item xs={5}>
@@ -231,13 +274,8 @@ const PokemonInfoCard = () => {
       </Grid>
       <Grid container justifyContent="center">
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">POKEMON NAME</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={pokemonName}
-            onChange={handleChange}
-          >
+          <InputLabel>POKEMON NAME</InputLabel>
+          <Select value={pokemonName} onChange={handleChange}>
             {allPokemonList.map((data, index) => (
               <MenuItem key={index} value={index}>
                 {data.pokemonName}
