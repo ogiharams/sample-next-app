@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import SortingAndSelectingTable from "../../components/molecules/materialUi/SortingAndSelectingTable";
+import SelectBox from "../../components/templates/materialUi/SelectBox";
+import DatePickerSample from "../../components/molecules/materialUi/DatePickerSample";
 
 const index = () => {
   const [disabled1, setDisabled1] = useState(true);
@@ -79,6 +81,8 @@ const index = () => {
       <button disabled={disabled3}>btn3</button>
       <button onClick={() => handleClick()}>状態変更</button>
       <SortingAndSelectingTable />
+      <SelectBox />
+      <DatePickerSample />
     </div>
   );
 };

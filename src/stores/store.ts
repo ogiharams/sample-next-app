@@ -7,6 +7,7 @@ import rtkLoginReducer from "./slices/rtkTaskLogin/loginSlice";
 import rtkTaskReducer from "./slices/rtkTaskTask/taskSlice";
 import custiomCounterReducer from "./slices/rtkLesson/custiomCounterSlice";
 import startInfoReducer from "./slices/pokemon/startInfoSlice";
+import { pokemonReducer } from "./slices/pokemon/pokemonSlice";
 import { pokemonApi } from "./services/pokemonApi";
 
 export const store = configureStore({
@@ -19,10 +20,12 @@ export const store = configureStore({
     rtkTask: rtkTaskReducer,
     customCounter: custiomCounterReducer,
     startInfo: startInfoReducer,
+    pokemonState: pokemonReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(pokemonApi.middleware),
 });
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export default store;
