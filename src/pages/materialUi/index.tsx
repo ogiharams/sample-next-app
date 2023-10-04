@@ -4,11 +4,12 @@ import SelectBox from "../../components/templates/materialUi/SelectBox";
 import DatePickerSample from "../../components/molecules/materialUi/DatePickerSample";
 
 const index = () => {
+  console.log("aaaa");
   const [disabled1, setDisabled1] = useState(true);
   const [disabled2, setDisabled2] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
   const [state, setState] = useState([
-    { id: 1, state: "未接続" },
+    { id: 1, state: "受付中" },
     { id: 2, state: "未接続" },
     { id: 3, state: "未接続" },
   ]);
