@@ -1,5 +1,5 @@
 const functionA = () => {
-  return <div>Enter</div>;
+  return <div>EnterA</div>;
 };
 
 export default functionA;
