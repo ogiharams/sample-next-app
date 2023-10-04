@@ -60,7 +60,6 @@ type Params = {
 export const getServerSideProps = async ({ params }: any) => {
   const req = await fetch(`http://localhost:3000/nextStart/${params.id}.json`);
   const data = await req.json();
-  console.log(data);
 
   return {
     props: {
@@ -70,6 +69,7 @@ export const getServerSideProps = async ({ params }: any) => {
 };
 
 const Product: NextPage<Product> = ({ product }) => {
+  console.log("product", product);
   const router = useRouter();
   // console.log(router);
   const { id } = router.query;

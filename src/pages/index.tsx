@@ -1,15 +1,17 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+const Home = () => {
   const pagesInfo = [
+    { pageName: "ポケモン", path: "pokemon" },
     { pageName: "foodDelivery", path: "foodDelivery" },
     { pageName: "rtkTasks", path: "rtkTasks" },
     { pageName: "rtkBasic", path: "rtkBasic" },
     { pageName: "rtlLesson", path: "rtlLesson" },
+    { pageName: "rtkQuery", path: "rtkQuery" },
+    { pageName: "materialUi", path: "materialUi" },
     { pageName: "blogJamstack", path: "blogJamstack" },
     { pageName: "nextStart", path: "nextStart/products" },
     { pageName: "nextTypescript", path: "nextTypescript" },
@@ -17,6 +19,7 @@ const Home: NextPage = () => {
     { pageName: "typeScript", path: "typeScript" },
     { pageName: "HLS", path: "hls" },
     { pageName: "WAV", path: "wav" },
+    { pageName: "other", path: "other" },
   ];
 
   return (
@@ -29,9 +32,8 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1>Development-List</h1>
-        {console.log(pagesInfo)}
         {pagesInfo.map((pageInfo) => (
-          <ul>
+          <ul key={pageInfo.pageName}>
             <li>
               <Link href={pageInfo.path}>
                 <a>{pageInfo.pageName}</a>

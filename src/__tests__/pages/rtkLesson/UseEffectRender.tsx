@@ -1,8 +1,9 @@
+import "fetch-ponyfill";
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import UseEffectRender from "../../pages/rtlLesson/UseEffectRender";
+import UseEffectRender from "../../../pages/rtlLesson/UseEffectRender";
 
 describe("useEffect rendering", () => {
   it("should render only after async function resolved", async () => {
