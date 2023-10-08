@@ -1,31 +1,12 @@
 import { useEffect } from "react";
 import Axios from "axios";
-import {
-  Box,
-  Button,
-  Grid,
-  StylesProvider,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Button, Grid, makeStyles } from "@material-ui/core";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import styles from "./index.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import {
-  handleBackButton,
-  handleStartButton,
-  startState,
-} from "../../stores/slices/pokemon/startInfoSlice";
+import { setPlayStartState } from "../../stores/slices/pokemon/playStartSlice";
+import { setAllPokemonList } from "../../stores/slices/pokemon/allPokemonJapaneseNameSlice";
 import PokemonInfoCard from "./PokemonInfoCard";
-import { setAllPokemonList } from "../../stores/slices/pokemon/pokemonSlice";
-
-type Name = {
-  language: {
-    name: string;
-    url: string;
-  };
-  name: string;
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   pokemonLogo: {
     marginTop: 20,
     marginBottom: 20,
-    width: "45%",
+    width: "35%",
     opacity: "0.9",
   },
   masterBallLogo: {
@@ -49,14 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonArea: {
     position: "fixed",
-    bottom: "5%",
+    bottom: "8%",
   },
   startButton: {
     width: 150,
     paddingRight: 5,
     color: "#412a3c",
     fontSize: "3rem",
-    lineHeight: 1.3,
+    lineHeight: 1,
   },
   arrowRightIcon: {
     width: 40,
@@ -64,15 +45,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//  全てのポケモンの情報を事前に取得
+//  全てのポケモンの日本語名をサーバーで取得
 export const getServerSideProps = async () => {
   const requestData = {
-    lastPokemonNo: "10",
+    lastPokemonNo: "151", //最後のポケモンのNoを設定
   };
 
   try {
     const response = await Axios.post(
-      `http://localhost:3000/api/getAllPokemon`,
+      `${process.env.NEXT_PUBLIC_URL}/api/getAllPokemon`,
       requestData,
       {
         headers: {
@@ -92,7 +73,7 @@ export const getServerSideProps = async () => {
       };
     }
   } catch (error) {
-    console.log("api error");
+    console.log(error);
     return {
       props: {
         allPokemonData: null,
@@ -102,34 +83,26 @@ export const getServerSideProps = async () => {
 };
 
 const Pokemon = ({ allPokemonData }: any) => {
-  console.log("allPokemonData", allPokemonData);
-
   const classes = useStyles();
 
-  // Redux関連
-  const allPokeonListState = useAppSelector(
-    (state) => state.pokemonState.allPokemonList
-  );
-  console.log(allPokeonListState);
-  const dispatch2 = useAppDispatch();
-  const dispatch = useDispatch();
-  const start = useSelector(startState);
+  /* Redux関連 */
+  const dispatch = useAppDispatch();
+  // ポケモン図鑑のスタート状況を取得
+  const playStart = useAppSelector((state) => state.playStartState.playStart);
 
-  // startボタンとbackボタン切り替え
-  const handleStartButtonClick = (): void => {
-    dispatch(handleStartButton());
-  };
-  // startボタンとbackボタン切り替え
-  const handleBackButtonClick = (): void => {
-    dispatch(handleBackButton());
+  // StartボタンとBackボタン切り替えを行う関数
+  const handleClickStartOrBackButton = (boolean: boolean): void => {
+    dispatch(setPlayStartState({ playStart: boolean }));
   };
 
-  const changeAllPokemonList = () => {
-    dispatch2(setAllPokemonList({ allPokemonList: allPokemonData }));
+  // セレクトボックスに表示する全てのポケモンのリストを取得する関数
+  const getAllPokemonJapaneseNameList = (): void => {
+    dispatch(setAllPokemonList({ allPokemonJapaneseNameList: allPokemonData }));
   };
 
+  // 画面表示時に実行
   useEffect(() => {
-    changeAllPokemonList();
+    getAllPokemonJapaneseNameList();
   }, []);
 
   return (
@@ -142,7 +115,7 @@ const Pokemon = ({ allPokemonData }: any) => {
           />
         </Grid>
         <Grid container justifyContent="center">
-          {start ? (
+          {playStart ? (
             <PokemonInfoCard />
           ) : (
             <Box>
@@ -155,11 +128,11 @@ const Pokemon = ({ allPokemonData }: any) => {
         </Grid>
         <Grid container justifyContent="center">
           <Box className={classes.buttonArea}>
-            {start ? (
+            {playStart ? (
               <Button
                 variant="contained"
                 className={classes.startButton}
-                onClick={() => handleBackButtonClick()}
+                onClick={() => handleClickStartOrBackButton(false)}
               >
                 BACK
                 <ArrowRightIcon className={`${classes.arrowRightIcon} icon`} />
@@ -168,7 +141,7 @@ const Pokemon = ({ allPokemonData }: any) => {
               <Button
                 variant="contained"
                 className={classes.startButton}
-                onClick={() => handleStartButtonClick()}
+                onClick={() => handleClickStartOrBackButton(true)}
               >
                 START
                 <ArrowRightIcon className={`${classes.arrowRightIcon} icon`} />
