@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 const Home = () => {
   const pagesInfo = [
     { pageName: "ポケモン", path: "pokemon" },
+    { pageName: "Js,React.jsの基礎", path: "reactJsBasic" },
     { pageName: "foodDelivery", path: "foodDelivery" },
     { pageName: "rtkTasks", path: "rtkTasks" },
     { pageName: "rtkBasic", path: "rtkBasic" },
