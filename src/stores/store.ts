@@ -6,8 +6,8 @@ import fetch2Reducer from "./slices/fetch2/fetch2Slice";
 import rtkLoginReducer from "./slices/rtkTaskLogin/loginSlice";
 import rtkTaskReducer from "./slices/rtkTaskTask/taskSlice";
 import custiomCounterReducer from "./slices/rtkLesson/custiomCounterSlice";
-import startInfoReducer from "./slices/pokemon/startInfoSlice";
-import { pokemonReducer } from "./slices/pokemon/pokemonSlice";
+import { playStartReducer } from "./slices/pokemon/playStartSlice";
+import { allPokemonJapaneseNameReducer } from "./slices/pokemon/allPokemonJapaneseNameSlice";
 import { pokemonApi } from "./services/pokemonApi";
 
 export const store = configureStore({
@@ -19,8 +19,8 @@ export const store = configureStore({
     rtkLogin: rtkLoginReducer,
     rtkTask: rtkTaskReducer,
     customCounter: custiomCounterReducer,
-    startInfo: startInfoReducer,
-    pokemonState: pokemonReducer,
+    playStartState: playStartReducer,
+    allPokemonJapaneseNameState: allPokemonJapaneseNameReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
