@@ -1,6 +1,13 @@
+import Axios from "axios";
+import Counter from "./counter";
+import { useEffect } from "react";
+
 // 関数
 const index = () => {
   /***  JavaScript基礎 ***/
+  /* 参考資料 */
+  // MDN:https://developer.mozilla.org/ja/docs/Web
+
   /* 変数 */
   let variableName = "変数";
   /* 定数 */
@@ -134,9 +141,75 @@ const index = () => {
   };
   function3();
 
+  /* API */
+  // fetchAPI
+  const getData = async () => {
+    await fetch("https://jsonplaceholder.typicode.com/users/")
+      .then((response) => {
+        // レスポンスエラーの場合、エラーを投げる（catchで取得）
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then((json) => {
+        console.log(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  getData();
+
+  // Axios
+  const getData2 = async () => {
+    await Axios.get("https://jsonplaceholder.typicode.com/users/")
+      .then((response) => {
+        // レスポンスエラーの場合、エラーを投げる（catchで取得）
+        if (response.status !== 200) {
+          throw new Error(response.status);
+        }
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  getData2();
+
+  /*** React,Next.js基礎 ***/
+  /* 
+    Reactとは？
+    ・FaceBookが開発したJavaScriptのUI構築に特化したライブラリ
+    
+    特徴
+    ・コンポーネントベースのアーキテクチャ
+      →コンポーネント単位に分割（ファイル分割）してUIを作成
+      →再利用性が向上し、コード量が減る
+    ・仮想DOM
+      →実際のDOMと仮想DOMを比較し変更があった部分のみ実際のDOMに適応するのでパフォーマンスが向上する
+    ・JSX記法
+      →JavaScript内でHTMLライクな構文でUIコンポーネントの記述が可能
+
+    Next.jsとは？
+    ・Reactをベースにしたフレームワーク
+      →ウェブアプリケーションを構築する上で便利な機能を提供
+    
+    特徴
+    ・サーバーサイドレンダリング（SSR）
+      →ページを事前にサーバーでレンダリングすることが可能
+    ・ルーティング
+      →ルートディレクトリ内のファイルが自動的にページになる為、ルーティング設定がシンプル
+    ・APIルート
+      →APIエンドポイントを簡単に作成できる
+  */
+
   return (
+    // JSX記法
     <>
-      <div>Enter</div>
+      <div>Javascript,Reactの基礎</div>
+      <Counter />
     </>
   );
 };

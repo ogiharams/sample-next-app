@@ -5,6 +5,7 @@ import FrameworkList from "./FrameworkList";
 import UseEffectRender from "./UseEffectRender";
 import MockServer from "./MockServer";
 import Redux from "./Redux";
+import SelectBox from "./selectBox";
 
 const index = () => {
   const data = [
@@ -33,6 +34,7 @@ const index = () => {
       <UseEffectRender />
       <MockServer />
       <Redux />
+      <SelectBox />
     </>
   );
 };
