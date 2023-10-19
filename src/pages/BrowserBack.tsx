@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function App() {
   const blockBrowserBack = () => {
-    alert();
     return true;
   };
 
