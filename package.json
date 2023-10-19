@@ -15,7 +15,7 @@
     "eslint": "eslint ./**/*.{ts,tsx}",
     "debug:eslint": "stylelint ./**/*.css",
     "lint": "npm run fix:eslint ; npm run fmt",
-    "test": "jest --env=jsdom --verbose"
+    "test": "jest --env=jsdom --verbose --coverage"
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",

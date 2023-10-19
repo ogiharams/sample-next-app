@@ -1,12 +1,12 @@
 import axios from "axios";
+import { NextApiRequest, NextApiResponse } from "next/types";
 
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const requestData = req.body;
 
   try {
     // 固定のスラッグを使用してAPIにリクエストを送信
     const response = await axios.get(
-      // `https://jsonplaceholder.typicode.com/comments?postId=${requestData.key1}`
       `https://jsonplaceholder.typicode.com/comments?postId=${requestData.key1}`
     );
 
